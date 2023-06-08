@@ -27,6 +27,7 @@ const Home: NextPage = () => {
           <h2 className="text-white font-semibold flex items-start justify-start text-left text-2xl">Select all dog</h2>
           <Captcha/>
           <button
+          type="submit"
             className="flex w-[50%] items-center mx-auto justify-center rounded-md bg-app-red px-4 py-1 text-center text-white font-semibold"
             onClick={() => {
               console.log("Captcha clicked");
