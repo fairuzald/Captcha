@@ -11,7 +11,7 @@ export default withIronSessionApiRoute(async function handler(req,res) {
 
     const dataselected = JSON.stringify(selectedIndexes.sort());
     const dataDog = JSON.stringify(dogsIndexes)
-    console.log({dataDog, dataselected});
+    console.log({dataDog:req.session.captchaImages, dataselected:req.body});
   const captchaIsOk = JSON.stringify(dogsIndexes) === JSON.stringify(selectedIndexes.sort());
 
 
