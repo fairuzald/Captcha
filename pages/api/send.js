@@ -9,7 +9,8 @@ export default withIronSessionApiRoute(async function handler(req,res) {
     })
     .filter(index => index !== -1);
 
-
+    const dataselected = JSON.stringify(selectedIndexes.sort());
+    const dataDog = JSON.stringify(dogsIndexes)
   const captchaIsOk = JSON.stringify(dogsIndexes) === JSON.stringify(selectedIndexes.sort());
 
 
@@ -24,6 +25,8 @@ export default withIronSessionApiRoute(async function handler(req,res) {
 
   res.json({
     captchaIsOk,
+    dataDog,
+    dataselected,
     sent,
   });
 }, {
