@@ -1,16 +1,4 @@
-import type { Dispatch, SetStateAction } from "react";
-
-const TextBox = ({
-  value,
-  setValue,
-  name,
-  placeholder,
-}: {
-  value: string;
-  name: string;
-  setValue: Dispatch<SetStateAction<string>>;
-  placeholder: string;
-}) => {
+export default function TextBox({ placeholder, name, value, setValue }) {
   return (
     <div className="flex w-full bg-white">
       <input
@@ -23,6 +11,4 @@ const TextBox = ({
       />
     </div>
   );
-};
-
-export default TextBox;
+}

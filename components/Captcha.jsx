@@ -1,17 +1,20 @@
 import Image from "next/image";
-import type { Dispatch, SetStateAction } from "react";
-import CheckIcon from "@/components/icons/CheckIcon";
-const Captcha = ({
+import { useEffect } from "react";
+import CheckIcon from "./icons/CheckIcon";
+
+export default function Captcha({
   selectedImages,
   setSelectedImages,
-}: {
-  selectedImages: number[];
-  setSelectedImages: Dispatch<SetStateAction<number[]>>;
-}) => {
-  const imagesArray = new Array(9).fill(null).map((_, index: number) => {
-    return `/api/captcha-image?index=${index}`;
+  captchaKey,
+}) {
+  useEffect(() => {
+    setSelectedImages([]);
+  }, [captchaKey, setSelectedImages]);
+
+  const imagesArray = new Array(9).fill(null).map((value, index) => {
+    return `/api/captcha-image?index=${index}&key=${captchaKey}`;
   });
-  function toogleSelected(index: number) {
+  function toogleSelected(index) {
     if (selectedImages.includes(index)) {
       const newSelectedImages = selectedImages.filter(
         (imageIndex) => imageIndex !== index
@@ -24,25 +27,25 @@ const Captcha = ({
   }
   return (
     <div className="container grid grid-cols-3">
-      {imagesArray.map((imageUrl: string, index: number) => {
+      {imagesArray.map((imageUrl, index) => {
         return (
           <button
             key={index}
             type="button"
             onClick={() => toogleSelected(index)}
-            className="relative h-[100px] w-[100px] overflow-hidden border-2 border-white bg-white"
+            className="relative w-[100px] h-[100px] lg:h-[150px] lg:w-[150px] overflow-hidden border-2 border-white bg-white"
           >
             <Image
               src={imageUrl}
               alt={`Image number ${index + 1}`}
-              width={100}
-              height={100}
+              width={150}
+              height={150}
               priority
               className="h-full w-full object-cover object-center"
             />
             {selectedImages.includes(index) && (
-              <div className="absolute inset-0 flex h-full w-full items-center justify-center bg-app-blue bg-opacity-50">
-                <CheckIcon style="w-10 h-10 fill-white" />
+              <div className="absolute inset-0 flex h-full w-full z-20 items-center justify-center bg-app-blue bg-opacity-50">
+                <CheckIcon style="w-10 h-10 fill-white z-50" />
               </div>
             )}
           </button>
@@ -50,5 +53,4 @@ const Captcha = ({
       })}
     </div>
   );
-};
-export default Captcha;
+}
