@@ -24,6 +24,7 @@ export default withIronSessionApiRoute(async function handler(req, res) {
   res.setHeader('Content-Type', 'image/png');
   const imageBuffer = fs.readFileSync(req.session.captchaImages[index]);
   res.send(imageBuffer);
+  console.log(req.session.captchaImages)
 }, {
   cookieName: 'session',
   password: process.env.SESSION_SECRET,
