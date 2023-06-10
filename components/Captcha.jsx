@@ -1,4 +1,6 @@
 import {useEffect, useState} from "react";
+import Image from "next/image";
+
 
 export default function Captcha({onChange,captchaKey}) {
   const [selectedIndexes,setSelectedIndexes] = useState([]);
@@ -32,7 +34,13 @@ export default function Captcha({onChange,captchaKey}) {
             key={index}
             onClick={() => toggleIndex(index)}
             className={selectedIndexes.includes(index) ? 'selected' : ''}>
-            <img src={imageUrl} alt=""/>
+            <Image
+              src={imageUrl}
+              alt={`Image number ${index + 1}`}
+              width={150}
+              height={150}
+              priority
+            />
           </div>
         ))}
       </div>
