@@ -1,41 +1,56 @@
-import {useEffect, useState} from "react";
+import Image from "next/image";
+import { useEffect } from "react";
+import CheckIcon from "./icons/CheckIcon";
 
-export default function Captcha({onChange,captchaKey}) {
-  const [selectedIndexes,setSelectedIndexes] = useState([]);
+export default function Captcha({
+  selectedImages,
+  setSelectedImages,
+  captchaKey,
+}) {
   useEffect(() => {
-    onChange(selectedIndexes);
-  }, [selectedIndexes]);
-  useEffect(() => {
-    setSelectedIndexes([]);
+    setSelectedImages([]);
   }, [captchaKey]);
 
-  const imageLocations = (new Array(9))
-    .fill(null)
-    .map((value, index) => {
-      return `/api/captcha-image?index=${index}&key=${captchaKey}`;
-    });
-  function toggleIndex(index) {
-    setSelectedIndexes(prev => {
-      if (prev.includes(index)) {
-        return prev.filter(v => v !== index);
-      } else {
-        return [...prev, index];
-      }
-    })
+  const imagesArray = new Array(9).fill(null).map((value, index) => {
+    return `/api/captcha-image?index=${index}&key=${captchaKey}`;
+  });
+  function toogleSelected(index) {
+    if (selectedImages.includes(index)) {
+      const newSelectedImages = selectedImages.filter(
+        (imageIndex) => imageIndex !== index
+      );
+      setSelectedImages(newSelectedImages);
+    } else {
+      const newSelectedImages = [...selectedImages, index];
+      setSelectedImages(newSelectedImages);
+    }
   }
   return (
-    <div className="captcha">
-      <h2>Select all dogs:</h2>
-      <div className="captcha-images">
-        {imageLocations.map((imageUrl,index) => (
-          <div
+    <div className="container grid grid-cols-3">
+      {imagesArray.map((imageUrl, index) => {
+        return (
+          <button
             key={index}
-            onClick={() => toggleIndex(index)}
-            className={selectedIndexes.includes(index) ? 'selected' : ''}>
-            <img src={imageUrl} alt=""/>
-          </div>
-        ))}
-      </div>
+            type="button"
+            onClick={() => toogleSelected(index)}
+            className="relative w-[100px] h-[100px] lg:h-[150px] lg:w-[150px] overflow-hidden border-2 border-white bg-white"
+          >
+            <Image
+              src={imageUrl}
+              alt={`Image number ${index + 1}`}
+              width={150}
+              height={150}
+              priority
+              className="h-full w-full object-cover object-center"
+            />
+            {selectedImages.includes(index) && (
+              <div className="absolute inset-0 flex h-full w-full z-20 items-center justify-center bg-app-blue bg-opacity-50">
+                <CheckIcon style="w-10 h-10 fill-white z-50" />
+              </div>
+            )}
+          </button>
+        );
+      })}
     </div>
   );
 }
