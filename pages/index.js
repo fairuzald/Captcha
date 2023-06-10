@@ -36,12 +36,12 @@ export default function Home({ defaultCaptchaKey }) {
   }
   return (
     <main>
-     <TextBox
-            value={message}
-            name="Text Box"
-            placeholder="Input the message"
-            setValue={setMessage}
-          />
+      <TextBox
+        value={message}
+        name="Text Box"
+        placeholder="Input the message"
+        setValue={setMessage}
+      />
       <div>
         <Captcha captchaKey={captchaKey} onChange={setSelectedIndexes} />
       </div>
