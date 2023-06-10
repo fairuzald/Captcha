@@ -35,8 +35,7 @@ export default function Captcha({
             onClick={() => toogleSelected(index)}
             className="relative w-[100px] h-[100px] lg:h-[150px] lg:w-[150px] overflow-hidden border-2 border-white bg-white"
           >
-                       <img src={imageUrl} alt=""/>
-
+            <Image src={imageUrl} alt="" />
             {selectedImages.includes(index) && (
               <div className="absolute inset-0 flex h-full w-full z-20 items-center justify-center bg-app-blue bg-opacity-50">
                 <CheckIcon style="w-10 h-10 fill-white z-50" />
