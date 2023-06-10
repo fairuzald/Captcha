@@ -2,7 +2,6 @@ import Captcha from "../components/Captcha";
 import { useState } from "react";
 import { withIronSessionSsr } from "iron-session/next";
 import { newCaptchaImages } from "./api/captcha-image";
-import TextBox from "../components/TextBox";
 
 export default function Home({ defaultCaptchaKey }) {
   const [message, setMessage] = useState("");
@@ -36,11 +35,11 @@ export default function Home({ defaultCaptchaKey }) {
   }
   return (
     <main>
-      <TextBox
+      <input
+        type="text"
+        onChange={(e) => setMessage(e.target.value)}
+        placeholder="Message"
         value={message}
-        name="Text Box"
-        placeholder="Input the message"
-        setValue={setMessage}
       />
       <div>
         <Captcha captchaKey={captchaKey} onChange={setSelectedIndexes} />
