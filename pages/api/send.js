@@ -9,9 +9,7 @@ export default withIronSessionApiRoute(async function handler(req,res) {
     })
     .filter(index => index !== -1);
 
-    const dataselected = JSON.stringify(selectedIndexes.sort());
-    const dataDog = JSON.stringify(dogsIndexes)
-    console.log({dataDog:req.session.captchaImages, dataselected:req.body});
+    
   const captchaIsOk = JSON.stringify(dogsIndexes) === JSON.stringify(selectedIndexes.sort());
 
 
@@ -26,11 +24,9 @@ export default withIronSessionApiRoute(async function handler(req,res) {
 
   res.json({
     captchaIsOk,
-    dataDog,
-    dataselected,
     sent,
   });
 }, {
-  cookieName: 'session',
+  cookieName: '_zcWx9OVHgG',
   password: process.env.SESSION_SECRET,
 });
